@@ -22,7 +22,11 @@ HEADLINE = [
 def strip(s):
     return re.sub(r"--[^\n]*", "", re.sub(r"/-.*?-/", "", s, flags=re.S))
 
-THM = re.compile(r"^\s*(?:@\[[^\]]*\]\s*)?(?:protected\s+)?theorem\s+([^\s:({\[]+)", re.M)
+# `theorem` or `lemma`, after any attributes, `open ... in`, and modifiers. Private declarations
+# cannot be named from the audit file; they are audited through the public theorems that use them.
+THM = re.compile(
+    r"^\s*(?:open\s+[^\n]*?\s+in\s+)?(?:@\[[^\]]*\]\s*)*"
+    r"(?:(?:protected|noncomputable|nonrec)\s+)*(theorem|lemma)\s+([^\s:({\[]+)", re.M)
 NS = re.compile(r"^namespace\s+(\S+)", re.M)
 names, imports = [], []
 for f in FILES:
@@ -30,7 +34,7 @@ for f in FILES:
     spaces = NS.findall(src)
     if len(set(spaces)) != 1:
         sys.exit(f"{f}: expected one namespace, found {spaces}")
-    names += [f"{spaces[0]}.{n}" for n in THM.findall(src)]
+    names += [f"{spaces[0]}.{n}" for _, n in THM.findall(src)]
     imports.append("import " + ".".join(f.relative_to(ROOT).with_suffix("").parts))
 for h in HEADLINE:
     if h not in names:
@@ -62,4 +66,4 @@ if bad:
     for n, u in bad:
         print(f"DISALLOWED: {n} uses {u}")
     sys.exit(f"{len(bad)} theorem(s) depend on disallowed axioms")
-print(f"OK: {len(names)} public theorems in Port/ and K3/ use only {sorted(ALLOWED)}")
+print(f"OK: {len(names)} public theorems and lemmas in Port/ and K3/ use only {sorted(ALLOWED)}")
