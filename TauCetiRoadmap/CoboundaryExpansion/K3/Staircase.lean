@@ -5,7 +5,15 @@ statement below is checked by the Lean kernel in CI.
 import TauCetiRoadmap.CoboundaryExpansion.K3.Replication
 
 /-!
-# Layer 7: Kozlov's staircase seeds, and `h₁(K_k) = k/3` for every `k ≥ 3`
+# Staircase seeds for `Sym(3)`, and `h₁(K_k) = k/3` for every `k ≥ 3`
+
+(Called Layer 7 in the coboundary-k3-lean repository; it is not this roadmap's Layer 7,
+`h1_complete_movedNorm_fin_two`, which is neither stated nor used here.)
+
+Attribution: the seeds are Kozlov's staircase graphs [D. N. Kozlov, arXiv:1610.07136, Def. 3.2
+and §3.1]; the cut-minimality bound is proved directly here, following [Kozlov, Lemma 3.8 and
+Cor. 3.13] (triangle count after [Kozlov, Lemma 3.10]); the `Sym(3)` transfer (parity retraction)
+and the `k/3` theorem are [Beasley, Cor. 7, Thm. 8].
 
 The seeds are the staircase graphs of D. N. Kozlov (arXiv:1610.07136), built from the partition
 `(t, t-1, …, 1)`: on `m = 2t + 1` vertices `u, v₁, …, v_t, y₁, …, y_t`, join `vᵢ` to `y_j`

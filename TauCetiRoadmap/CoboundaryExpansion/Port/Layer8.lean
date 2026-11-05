@@ -1,5 +1,6 @@
 /-
-Author: Jeromie Beasley (dicipler-pixel). Port drafted with AI assistance (Grok Bot).
+Author: Jeromie Beasley (dicipler-pixel). Port drafted with AI assistance (Grok Bot). The ported
+`K3` files were drafted with Grok Bot and Claude (see `K3/Replication.lean`).
 -/
 import TauCetiRoadmap.CoboundaryExpansion.Port.Bridge
 import TauCetiRoadmap.CoboundaryExpansion.K3.Staircase
@@ -16,6 +17,14 @@ replicated `k = 4` seed at multiples of four and replicated `Sym(3)` staircase s
 proved directly (parity of the gauge, then a cut count); the roadmap's Layer 7 theorem
 `h1_complete_movedNorm_fin_two` (the `𝔽₂` constant) is neither stated nor used. `h1Sym_complete`
 (which needs the Layer 4 star bound in every degree) is not proved here.
+
+This is an alternative route to README 8.1, whose listed dependency is 7.4 (Kozlov's `𝔽₂`
+theorem); 7.4 is not used.
+
+Attribution: the seeds are Kozlov's staircase graphs [D. N. Kozlov, arXiv:1610.07136, Def. 3.2
+and §3.1]; the cut-minimality bound is proved directly here, following [Kozlov, Lemma 3.8 and
+Cor. 3.13] (triangle count after [Kozlov, Lemma 3.10]); the `Sym(3)` transfer (parity retraction)
+and the `k/3` theorem are [Beasley, Cor. 7, Thm. 8].
 -/
 
 open Finset Equiv

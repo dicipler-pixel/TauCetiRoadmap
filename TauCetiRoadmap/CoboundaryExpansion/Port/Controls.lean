@@ -1,5 +1,6 @@
 /-
-Author: Jeromie Beasley (dicipler-pixel). Port drafted with AI assistance (Grok Bot).
+Author: Jeromie Beasley (dicipler-pixel). Port drafted with AI assistance (Grok Bot). The ported
+`K3` files were drafted with Grok Bot and Claude (see `K3/Replication.lean`).
 -/
 import TauCetiRoadmap.CoboundaryExpansion.Port.Layer6
 import TauCetiRoadmap.CoboundaryExpansion.Port.Layer8
