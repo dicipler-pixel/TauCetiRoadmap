@@ -1,0 +1,42 @@
+# Staging-branch check for the CoboundaryExpansion port. Not part of upstream CI.
+name: Port axiom audit
+
+on:
+  push:
+    branches: [coboundary-layers-6-8]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Lean and restore Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+          lint: false
+          use-mathlib-cache: true
+          use-github-cache: false
+
+      - name: Build the port
+        run: lake build TauCetiRoadmap.CoboundaryExpansion.Port.Controls TauCetiRoadmap.CoboundaryExpansion.K3.Staircase
+
+      - name: Axiom audit of every public theorem in Port/ and K3/
+        run: python3 .github/scripts/port_axiom_audit.py
+
+      - name: Keep the audit log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: port-axiom-audit
+          path: port-axiom-audit.log
+          if-no-files-found: warn

@@ -1,6 +1,7 @@
 /-
-Author: Jeromie Beasley (dicipler-pixel). Drafted with AI assistance (Grok Bot); every
-statement below is checked by the Lean kernel in CI.
+Author: Jeromie Beasley (dicipler-pixel). Drafted with AI assistance (Grok Bot). On this
+branch the axiom audit of every public theorem here runs in
+`.github/workflows/port-axiom-audit.yml` (`.github/scripts/port_axiom_audit.py`).
 -/
 import TauCetiRoadmap.CoboundaryExpansion.K3.Replication
 
@@ -263,8 +264,9 @@ theorem st_ab_bound (A B : Bool) :
   cases A <;> cases B <;> decide
 
 /-- **Cut-minimality.** Every sign pattern on the staircase of `K_{2t+1}` costs at least the
-number of edges `t(t+1)/2`. Adding the two newest positions `2t+1` (a new `v`, joined to every
-earlier `y`) and `2t+2` (a new `y`, joined only to it) adds at least `t + 1`: if their signs agree,
+number of edges `t(t+1)/2`. Adding the two newest positions `2t+1` (a new `v`, whose only
+neighbour is the new `y`) and `2t+2` (a new `y`, joined to every `v`, the new one included) adds
+at least `t + 1`: if their signs agree,
 each of the `t` odd earlier positions contributes one and the new edge one; if they differ, each of
 the `t + 1` even earlier positions contributes one. -/
 theorem st_cutF_ge (t : ℕ) : ∀ σ : ℕ → Bool, t * (t + 1) ≤ 2 * cutF σ (2 * t + 1) := by
